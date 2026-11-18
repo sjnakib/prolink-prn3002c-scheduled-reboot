@@ -1,0 +1,15 @@
+# Credentials and logs
+router-reboot.env
+*.env
+!*.env.example
+router-cred.xml
+*.log
+
+# Editors and operating system files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db

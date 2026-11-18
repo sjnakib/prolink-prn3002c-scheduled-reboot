@@ -116,6 +116,8 @@ run `ipconfig` and look for the default gateway.
 ## Security notes
 
 - The router uses plain HTTP, so use this only on a trusted LAN.
+- The firmware no longer receives security updates. Treat the router as an
+  unpatched device and keep it on a trusted or isolated network.
 - Keep `router-reboot.env` at `chmod 600`.
 - Never commit `router-reboot.env` or `router-cred.xml`. Both are in
   `.gitignore`.

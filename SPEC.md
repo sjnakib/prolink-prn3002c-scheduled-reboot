@@ -139,6 +139,9 @@ that the username is not empty.
 
 - HTTP only, so credentials cross the LAN unencrypted. This is a router
   limitation.
+- The firmware no longer receives security updates. The vendor reports no
+  newer firmware and no source files. Keep the router on a trusted or
+  isolated network.
 - The script does not verify that the login succeeded. It relies on the
   reboot request working.
 - Only one router model has been tested.

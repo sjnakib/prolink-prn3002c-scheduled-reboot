@@ -36,6 +36,9 @@ Out of scope:
   credentials cross the LAN unencrypted. This is a router limitation.
 - Weak or default router admin passwords.
 - Router firmware vulnerabilities.
+- Missing firmware security updates. The vendor reports v1.70.00 as the
+  latest firmware and no source files. This is a hardware limitation, not a
+  vulnerability in this project.
 - Attacks that require physical access to the router or the host.
 - The risk of exposing the router admin page to the internet. Do not do that.
 

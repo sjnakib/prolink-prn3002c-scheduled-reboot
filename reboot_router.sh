@@ -8,6 +8,42 @@
 
 set -euo pipefail
 
+usage() {
+    cat <<'EOF'
+Usage: reboot_router.sh [--no-wait]
+
+Send a reboot request to a Prolink PRN3002-C router.
+
+Options:
+  --no-wait   Send the request and exit without waiting for the router.
+  -h, --help  Show this help and exit.
+
+Configuration:
+  ROUTER_IP, ROUTER_USER, and ROUTER_PASS are required.
+  The script reads them from $ENV_FILE, router-reboot.env next to the
+  script, or /etc/router-reboot.env.
+EOF
+}
+
+NO_WAIT=0
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --no-wait)
+            NO_WAIT=1
+            ;;
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        *)
+            echo "Unknown option: $1" >&2
+            usage >&2
+            exit 3
+            ;;
+    esac
+    shift
+done
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 if [ -n "${ENV_FILE:-}" ] && [ ! -r "$ENV_FILE" ]; then
@@ -93,6 +129,11 @@ log "Sending reboot request..."
 curl -sS --max-time 15 -c "$JAR" -b "$JAR" \
      -e "http://${ROUTER_IP}/reboot.htm" \
      "${REBOOT_FIELDS[@]}" "$REBOOT_URL" -o /dev/null || true
+
+if [ "$NO_WAIT" -eq 1 ]; then
+    log "Reboot request sent. Not waiting for the router."
+    exit 0
+fi
 
 # Wait for it to go down, then come back (up to ~90s)
 sleep 10

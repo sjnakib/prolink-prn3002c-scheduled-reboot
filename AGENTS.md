@@ -70,9 +70,10 @@ checked with the manual test plan in `SPEC.md`.
 
 ## Script rules
 
-- Use bash only. The script must run inside the Home Assistant container,
-  so limit external tools to `bash`, `curl`, `ping`, `sleep`, `seq`,
-  `mktemp`, and `dirname`. Do not add `jq`, `python`, `wget`, or similar.
+- Use bash only. The script must run inside the Home Assistant container.
+  The current script relies on bash builtins plus `curl`, `ping`, `sleep`,
+  `seq`, `mktemp`, `dirname`, `date`, `cat`, and an optional `logger`. Do
+  not add `jq`, `python`, `wget`, or similar.
 - Keep `set -euo pipefail`.
 - Never print the password and never use `set -x`.
 - `ROUTER_IP`, `ROUTER_USER`, and `ROUTER_PASS` are required and have no

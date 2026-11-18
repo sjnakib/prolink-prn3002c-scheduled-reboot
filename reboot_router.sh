@@ -69,7 +69,14 @@ REBOOT_FIELDS=(--data-urlencode "reboot=Reboot"
 
 JAR="$(mktemp)"
 trap 'rm -f "$JAR"' EXIT
-log() { logger -t router-reboot "$*"; echo "$(date '+%F %T') $*"; }
+log() {
+    local message
+    message="$(date '+%F %T') $*"
+    echo "$message"
+    if command -v logger >/dev/null 2>&1; then
+        logger -t router-reboot "$*" 2>/dev/null || true
+    fi
+}
 
 # Skip if router is unreachable
 if ! ping -c 2 -W 2 "$ROUTER_IP" >/dev/null 2>&1; then

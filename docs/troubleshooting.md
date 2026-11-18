@@ -35,6 +35,13 @@ The repository's `.gitattributes` marks shell scripts as LF, so a normal
 `git clone` avoids this. Downloading or copying the file through some Windows
 tools can still add CRLF.
 
+Credentials files created in Notepad can also have CRLF. If `ROUTER_IP` or the
+password contains a stray `\r`, remove it from the credentials file:
+
+```bash
+sed -i 's/\r$//' router-reboot.env
+```
+
 ## Exit code 3: missing configuration
 
 **Cause:** The credentials file is missing, unreadable, or one of the three

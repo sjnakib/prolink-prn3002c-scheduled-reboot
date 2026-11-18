@@ -30,9 +30,9 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-function Write-Log {
+function Write-RouterLog {
     param([string]$Message)
-    Write-Host ("{0} {1}" -f (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'), $Message)
+    Write-Output ("{0} {1}" -f (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'), $Message)
 }
 
 function Exit-ConfigurationError {
@@ -104,7 +104,7 @@ function Test-RouterOnline {
 }
 
 if (-not (Test-Connection -ComputerName $RouterIp -Count 2 -Quiet -ErrorAction SilentlyContinue)) {
-    Write-Log "Router $RouterIp not reachable, aborting."
+    Write-RouterLog "Router $RouterIp not reachable, aborting."
     exit 1
 }
 
@@ -118,13 +118,13 @@ $loginHeaders = @{
     'Referer' = "http://$RouterIp/login.htm"
 }
 
-Write-Log "Logging in..."
+Write-RouterLog "Logging in..."
 try {
     Invoke-WebRequest -Uri $loginUrl -Method Post -Body $loginBody `
         -Headers $loginHeaders -UseBasicParsing -TimeoutSec 15 | Out-Null
 }
 catch {
-    Write-Log "Login request failed: $($_.Exception.Message)"
+    Write-RouterLog "Login request failed: $($_.Exception.Message)"
     exit 1
 }
 
@@ -137,28 +137,29 @@ $rebootHeaders = @{
     'Referer' = "http://$RouterIp/reboot.htm"
 }
 
-Write-Log "Sending reboot request..."
+Write-RouterLog "Sending reboot request..."
 try {
     Invoke-WebRequest -Uri $rebootUrl -Method Post -Body $rebootBody `
         -Headers $rebootHeaders -UseBasicParsing -TimeoutSec 15 | Out-Null
 }
 catch {
     # The router may drop the connection while it reboots.
+    Write-Verbose "Reboot request ended: $($_.Exception.Message)"
 }
 
 if ($NoWait) {
-    Write-Log "Reboot request sent. Not waiting for the router."
+    Write-RouterLog "Reboot request sent. Not waiting for the router."
     exit 0
 }
 
 Start-Sleep -Seconds 10
 for ($attempt = 0; $attempt -lt 40; $attempt++) {
     if (Test-RouterOnline) {
-        Write-Log "Router is back online."
+        Write-RouterLog "Router is back online."
         exit 0
     }
     Start-Sleep -Seconds 2
 }
 
-Write-Log "Router did not come back within the expected time."
+Write-RouterLog "Router did not come back within the expected time."
 exit 2

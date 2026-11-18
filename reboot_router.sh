@@ -8,12 +8,24 @@
 
 set -euo pipefail
 
-ENV_FILE="/etc/router-reboot.env"
-[ -r "$ENV_FILE" ] && source "$ENV_FILE"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+if [ -n "${ENV_FILE:-}" ]; then
+    CONFIG_FILE="$ENV_FILE"
+elif [ -r "$SCRIPT_DIR/router-reboot.env" ]; then
+    CONFIG_FILE="$SCRIPT_DIR/router-reboot.env"
+else
+    CONFIG_FILE="/etc/router-reboot.env"
+fi
+
+if [ -r "$CONFIG_FILE" ]; then
+    # shellcheck source=/dev/null
+    source "$CONFIG_FILE"
+fi
 
 ROUTER_IP="${ROUTER_IP:-}"
 if [ -z "$ROUTER_IP" ]; then
-    echo "ROUTER_IP is not set. Add ROUTER_IP=\"<router address>\" to $ENV_FILE" >&2
+    echo "ROUTER_IP is not set. Add ROUTER_IP=\"<router address>\" to $CONFIG_FILE" >&2
     exit 3
 fi
 case "$ROUTER_IP" in

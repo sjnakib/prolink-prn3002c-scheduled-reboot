@@ -10,6 +10,11 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+if [ -n "${ENV_FILE:-}" ] && [ ! -r "$ENV_FILE" ]; then
+    echo "ENV_FILE is set to $ENV_FILE but the file is not readable." >&2
+    exit 3
+fi
+
 if [ -n "${ENV_FILE:-}" ]; then
     CONFIG_FILE="$ENV_FILE"
 elif [ -r "$SCRIPT_DIR/router-reboot.env" ]; then
@@ -24,17 +29,32 @@ if [ -r "$CONFIG_FILE" ]; then
 fi
 
 ROUTER_IP="${ROUTER_IP:-}"
+ROUTER_USER="${ROUTER_USER:-}"
+ROUTER_PASS="${ROUTER_PASS:-}"
+
+missing=""
 if [ -z "$ROUTER_IP" ]; then
-    echo "ROUTER_IP is not set. Add ROUTER_IP=\"<router address>\" to $CONFIG_FILE" >&2
+    missing="ROUTER_IP"
+fi
+if [ -z "$ROUTER_USER" ]; then
+    missing="${missing:+$missing, }ROUTER_USER"
+fi
+if [ -z "$ROUTER_PASS" ]; then
+    missing="${missing:+$missing, }ROUTER_PASS"
+fi
+
+if [ -n "$missing" ]; then
+    echo "Missing required configuration: $missing" >&2
+    echo "Set these values in $CONFIG_FILE or in the environment." >&2
+    echo "Files checked: \$ENV_FILE (if set), $SCRIPT_DIR/router-reboot.env, /etc/router-reboot.env" >&2
     exit 3
 fi
+
 case "$ROUTER_IP" in
     *://*|*/*)
         echo "ROUTER_IP must be an address or hostname only, without http:// or a path." >&2
         exit 3 ;;
 esac
-ROUTER_USER="${ROUTER_USER:-CHANGE_ME_USERNAME}"
-ROUTER_PASS="${ROUTER_PASS:-CHANGE_ME_PASSWORD}"
 
 # --- Endpoints/fields: VERIFY these with browser DevTools (see instructions) ---
 LOGIN_URL="http://${ROUTER_IP}/login.cgi"

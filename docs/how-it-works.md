@@ -95,7 +95,7 @@ password and any cookies before you share it in an issue.
 
 ### Change the script
 
-The request details are at the top of `reboot_router.sh`:
+The request details are in the request section of `reboot_router.sh`:
 
 - `LOGIN_URL` and `LOGIN_FIELDS`
 - `REBOOT_URL` and `REBOOT_FIELDS`

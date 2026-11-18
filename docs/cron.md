@@ -43,8 +43,8 @@ Status: Not tested.
    crontab -e
    ```
 
-4. Add one line. Replace `/full/path/to/reboot_router.sh` with the real path,
-   for example `/home/<user>/router-reboot/reboot_router.sh`:
+4. Add one line. Replace `/full/path/to/reboot_router.sh` with the real path
+   to the script:
 
    ```
    0 4 * * * /full/path/to/reboot_router.sh >> "$HOME/router-reboot.log" 2>&1
@@ -86,7 +86,9 @@ tail -n 20 "$HOME/router-reboot.log"
 
 ## Optional: systemd timer
 
-On Linux, a systemd timer is an alternative to cron. Create
+On Linux, a systemd timer is an alternative to cron. Place the script and
+`router-reboot.env` in `/srv/router-reboot/`, or change `ExecStart` to the
+real path. Make sure `<user>` can read both files. Create
 `/etc/systemd/system/router-reboot.service`:
 
 ```ini
@@ -96,7 +98,7 @@ Description=Reboot the Prolink router
 [Service]
 Type=oneshot
 User=<user>
-ExecStart=/home/<user>/router-reboot/reboot_router.sh
+ExecStart=/srv/router-reboot/reboot_router.sh
 ```
 
 Create `/etc/systemd/system/router-reboot.timer`:

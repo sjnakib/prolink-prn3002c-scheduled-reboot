@@ -137,7 +137,7 @@ fi
 
 # Wait for it to go down, then come back (up to ~90s)
 sleep 10
-for i in $(seq 1 40); do
+for _ in $(seq 1 40); do
     if ping -c 1 -W 2 "$ROUTER_IP" >/dev/null 2>&1; then
         log "Router is back online."
         exit 0

@@ -1,10 +1,29 @@
 #!/usr/bin/env bash
-# Reboot a Prolink PRN3002-C (Realtek/Boa firmware) via its web interface.
-# Install to: /usr/local/bin/reboot_router.sh  (chmod 750)
-# Settings: put them in /etc/router-reboot.env (chmod 600), NOT in this file:
-#   ROUTER_IP="192.168.0.2"     # your router's LAN address, required
-#   ROUTER_USER="admin"
-#   ROUTER_PASS='yourpassword'
+# Reboot a Prolink PRN3002-C router through its web interface.
+#
+# Tested on the Prolink PRN3002-C only. Other models may use different
+# endpoints or form fields.
+#
+# Usage:
+#   ./reboot_router.sh [--no-wait]
+#   ./reboot_router.sh --help
+#
+# Configuration (all required, no defaults):
+#   ROUTER_IP    Router LAN address, without http:// or a path.
+#   ROUTER_USER  Router admin username.
+#   ROUTER_PASS  Router admin password.
+#
+# The script reads the first readable file:
+#   1. $ENV_FILE, if set
+#   2. router-reboot.env next to the script
+#   3. /etc/router-reboot.env
+# Values already present in the environment are also accepted.
+#
+# Exit codes:
+#   0  Success
+#   1  Router unreachable before reboot
+#   2  Router did not come back in time
+#   3  Configuration error
 
 set -euo pipefail
 

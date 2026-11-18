@@ -132,6 +132,10 @@ its requests, then open a
 [router compatibility issue](https://github.com/sjnakib/prolink-prn3002c-scheduled-reboot/issues/new?template=router_compatibility.md)
 with the result.
 
+## Support the project
+
+If this saved you some time, a star on GitHub helps other people find it.
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). Compatibility reports are welcome.

@@ -3,6 +3,11 @@
 Goal: explain the requests the script sends, so you can check them or adapt
 them to another router.
 
+The PRN3002-C no longer receives firmware updates. As of November 2026,
+Prolink technical support reports v1.70.00 as the latest release and says the
+source files are no longer available. The details below are for the stock web
+interface.
+
 This describes the behavior verified on the Prolink PRN3002-C. Other models
 may use different endpoints, fields, or headers.
 

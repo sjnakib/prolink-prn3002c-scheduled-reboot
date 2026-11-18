@@ -4,10 +4,16 @@ Behavior and interface for the Prolink PRN3002-C reboot script.
 
 ## Purpose
 
-The Prolink PRN3002-C has no scheduled reboot feature in its web
-interface. This project logs in to the router and sends the reboot request
-that the web interface sends, so the reboot can run from Home Assistant,
-cron, or Windows Task Scheduler.
+The Prolink PRN3002-C has no scheduled reboot feature in its web interface.
+As of November 2026, Prolink technical support reports that firmware v1.70.00
+is the latest release, that no newer firmware has been released, and that the
+firmware source files are no longer available.
+
+The stock web interface is therefore the practical control surface. This
+project logs in and sends the reboot request that the interface sends, so the
+reboot can run from Home Assistant, cron, or Windows Task Scheduler. The goal
+is to keep working hardware useful as a separate Wi-Fi access point for IoT
+devices instead of discarding it.
 
 The target reader is a home user on the router's LAN. The project does not
 change router firmware and does not require a custom firmware image.
@@ -106,6 +112,7 @@ verified with browser developer tools.
 | Item | Value |
 | --- | --- |
 | Model | Prolink PRN3002-C, 300Mbps Wireless-N AP / Router |
+| Latest firmware | v1.70.00. Prolink technical support reports no newer firmware and no source files as of November 2026. |
 | Web server header | `Virtual Web 0.9` |
 | Admin URL | `http://<router-ip>/login.htm` |
 | Login request | `POST /login.cgi` with fields `username`, `password`, and `submit.htm?login.htm=Send` |
@@ -124,7 +131,8 @@ that the username is not empty.
 - Supporting other router brands or models without a tested report.
 - A web interface or a hosted service.
 - HTTPS support.
-- Router firmware changes.
+- Router firmware changes. The vendor no longer provides firmware source
+  files.
 - Verifying the login response or reading the router's reboot progress.
 
 ## Known limitations

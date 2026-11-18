@@ -9,6 +9,11 @@ router. The router has no reboot scheduler in its web interface, so the
 script logs in to the web interface and sends the same requests a browser
 would send.
 
+The router no longer receives firmware updates. As of November 2026, Prolink
+technical support reports v1.70.00 as the latest firmware and says the source
+files are no longer available. The goal is to keep working hardware useful as
+a separate Wi-Fi access point for IoT devices instead of discarding it.
+
 The main script is `reboot_router.sh`. Guides cover Home Assistant
 (Docker and Home Assistant OS), cron, and Windows Task Scheduler. The
 target reader is a home user who wants this working in about 10 minutes

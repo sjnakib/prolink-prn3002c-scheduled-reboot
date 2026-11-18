@@ -8,8 +8,16 @@ or Windows Task Scheduler.
 
 ## Why
 
-The Prolink PRN3002-C has no scheduled reboot feature. This project logs in
-to the router's web interface and sends the reboot request for you.
+The Prolink PRN3002-C has no scheduled reboot feature. As of November 2026,
+Prolink technical support reports that firmware v1.70.00 is the latest
+release, that no newer firmware has been released, and that the firmware
+source files are no longer available.
+
+The hardware still works. Without firmware updates or source, the stock web
+interface is the practical way to manage it. This project is a small attempt
+to keep the router out of landfill by adding the scheduled reboot that the
+stock firmware lacks, so it can serve as a separate Wi-Fi access point for
+IoT devices.
 
 ## How it works
 

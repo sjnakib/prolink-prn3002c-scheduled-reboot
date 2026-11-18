@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Guides for Home Assistant in Docker, Home Assistant OS, Home Assistant
   scheduling, cron, and Windows.
 - Request capture and troubleshooting documentation.
+- Project background covering the firmware support status and the goal of
+  reusing the router as a separate access point.
 - GitHub Actions lint workflow.
 
 [Unreleased]: https://github.com/sjnakib/prolink-prn3002c-scheduled-reboot/commits/main

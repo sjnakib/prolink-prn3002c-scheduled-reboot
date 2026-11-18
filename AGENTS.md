@@ -19,7 +19,7 @@ other models without a compatibility report.
 
 ## Repository layout
 
-```
+```text
 .
 ├── README.md
 ├── LICENSE
@@ -101,7 +101,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/).
 
 Format:
 
-```
+```text
 <type>(<optional scope>): <subject>
 
 <optional body>

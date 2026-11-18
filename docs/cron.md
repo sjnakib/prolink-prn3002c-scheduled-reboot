@@ -46,7 +46,7 @@ Status: Not tested.
 4. Add one line. Replace `/full/path/to/reboot_router.sh` with the real path
    to the script:
 
-   ```
+   ```text
    0 4 * * * /full/path/to/reboot_router.sh >> "$HOME/router-reboot.log" 2>&1
    ```
 

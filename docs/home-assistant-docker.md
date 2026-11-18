@@ -50,7 +50,7 @@ the credentials file inside the config folder. The examples below use
 
    Expect output like this:
 
-   ```
+   ```text
    2026-11-18 14:31:19 Logging in...
    2026-11-18 14:31:19 Sending reboot request...
    2026-11-18 14:31:43 Router is back online.

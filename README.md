@@ -43,7 +43,7 @@ In `router-reboot.env`, set `ROUTER_IP` to your router's address, then set
 
 Expected output (the times and duration will differ):
 
-```
+```text
 2026-11-18 14:31:19 Logging in...
 2026-11-18 14:31:19 Sending reboot request...
 2026-11-18 14:31:43 Router is back online.

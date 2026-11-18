@@ -64,7 +64,7 @@ address.
 
 Usage:
 
-```
+```bash
 ./reboot_router.sh [--no-wait]
 ./reboot_router.sh --help
 ```

@@ -40,7 +40,7 @@ tools can still add CRLF.
 **Cause:** The credentials file is missing, unreadable, or one of the three
 variables is empty. The script prints a message such as:
 
-```
+```text
 Missing required configuration: ROUTER_PASS
 ```
 
